@@ -14,6 +14,17 @@
             "id": "@sap/generator-fiori:basic",
             "version": "1.15.6",
             "toolsId": "05cfd926-9c78-454c-915a-d3dbdfc960f0"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/V2/Northwind/Northwind.svc/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
         }
     },
     "sap.ui": {
@@ -51,6 +62,22 @@
                 "settings": {
                     "bundleName": "logaligroup.sapui5.i18n.i18n"
                 }
+            },
+            "invoices": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "Invoices.json"
+            },
+            "northwind": {
+                "preload": true,
+                "dataSource": "mainService",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
             }
         },
         "resources": {
@@ -75,16 +102,30 @@
             "routes": [
                 {
                     "name": "RouteApp",
-                    "pattern": ":?query:",
+                    "pattern": "",
                     "target": [
-                        "TargetApp"
+                        "TargetOverview"
                     ]
-                }
-            ],
+                },
+            
+        
+        {
+          "name": "Details",
+                    "pattern": "details/{invoicePath}", 
+                    "target": [
+                        "TargetDetails"]
+
+        }
+    ],
             "targets": {
-                "TargetApp": {
-                    "id": "App",
-                    "name": "App"
+                "TargetOverview": {
+                    "id": "Overview",
+                    "name": "Overview"
+                },
+                "TargetDetails":{
+                    "id": "Details",
+                    "name": "Details"
+
                 }
             }
         },
